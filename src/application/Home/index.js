@@ -20,6 +20,7 @@ const Home = (props) => {
         <NavLink to='/singers' activeClassName='selected'><span>歌手</span></NavLink>
         <NavLink to='rank' activeClassName='selected'><span>排行榜</span></NavLink>
       </Tab>
+
       {renderRoutes(route.routes)}
     </article>
   )

@@ -5,13 +5,12 @@ export const SliderContainer = styled.div`
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
   margin: auto;
   background: white;
   .before{
     position: absolute;
-    top: 0;
-    height: 60%;
+    top: -400px;
+    height: 480px;
     width: 100%;
     background-color: ${style["theme-color"]};
   }

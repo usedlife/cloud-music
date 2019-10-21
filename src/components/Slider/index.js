@@ -29,7 +29,7 @@ const Slider = (props) => {
             return (
               <div className="swiper-slide" key={index}>
                 <div className="swiper-nav">
-                  <MyImg src={item.src}></MyImg>
+                  <MyImg src={item.imageUrl}></MyImg>
                 </div>
               </div>
             )

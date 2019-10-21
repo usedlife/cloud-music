@@ -32,8 +32,7 @@ export const SliderContainer = styled.div`
     }
   }
 `
-export const MyImg = styled.div`
-  height: 100%;
-  background-image: url(${props=>props.src});
-  background-size: cover;
+export const MyImg = styled.img`
+  width: 100%;  
+  height: 100%;  
 `

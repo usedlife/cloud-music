@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import Slider from '../../components/Slider';
 import SongSheetList from '../../components/SongSheetList';
 import { RecommendWrapper } from './style';
 import Scroll from '../../components/Scroll';
+import * as actionTypes from './store/actionCreators';
 
-const Recommend = () => {
+const Recommend = (props) => {
 
-  const bannerList = [1,2,3,4].map(() =>({
-    src: "http://p1.music.126.net/ZYLJ2oZn74yUz5x8NBGkVA==/109951164331219056.jpg",
-  }));
+  const { bannerList, recommendList } = props;
 
-  const recommendList = [1,2,3,4,5,6,7,8,9,10].map(item => {
-    return {
-      picUrl: "https://p1.music.126.net/fhmefjUfMD-8qtj3JKeHbA==/18999560928537533.jpg",
-      playCount: 17171122,
-      name: "朴树、许巍、李健、郑钧、老狼、赵雷"
-    }
-  });
+  const { fetchBannerList, fetchRecommendList } = props;
+
+  useEffect(() => {
+    fetchBannerList();
+    fetchRecommendList();
+  }, [])
 
   return (
     <RecommendWrapper>
@@ -32,4 +31,18 @@ const Recommend = () => {
   )
 }
 
-export default React.memo(Recommend)
+const mapStateToProps = (state) => ({
+  bannerList: state.getIn(['recommend', 'bannerList']).toJS(),
+  recommendList: state.getIn(['recommend', 'recommendList']).toJS(),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchBannerList() {
+    dispatch(actionTypes.fetchBannerList())
+  },
+  fetchRecommendList() {
+    dispatch(actionTypes.fetchRecommendList())
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Recommend));

@@ -1,15 +1,12 @@
-import React, { useState, useRef, memo, useEffect } from 'react';
+import React, { useRef, memo, useEffect } from 'react';
 import styled from 'styled-components';
 import Scroll from '../../components/Scroll';
 
-const Horizen = ({ labelList = [], title = '', onClick }) => {
-
-  const [currentKey, setCurrentKey] = useState();
+const Horizen = ({ labelList = [], title = '', onClick, currKey }) => {
 
   const Category = useRef(null)
 
   const handleItemClick = (key) => {
-    setCurrentKey(key);
     onClick && onClick(key);
   }
 
@@ -34,7 +31,7 @@ const Horizen = ({ labelList = [], title = '', onClick }) => {
               <Item 
                 key={key}
                 onClick={() => {handleItemClick(key)}}
-                className={currentKey === item.key ? 'selected' : ''}
+                className={currKey === key ? 'selected' : ''}
               >
                 {title}
               </Item>

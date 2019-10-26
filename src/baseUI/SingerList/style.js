@@ -23,7 +23,7 @@ export const Item = styled.div`
   }
   >.name{
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
     margin-left: 16px;
   }
 `

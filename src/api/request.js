@@ -12,5 +12,7 @@ export const getRecommendListRequest = () => {
 
 // 热门歌手
 export const getSingerListRequest = (data) => {
-  return request.get('/top/artists',{params: data});
+  const { isHot, ...params } = data;
+  const url = isHot ? '/top/artists' : '/artist/list';
+  return request.get(url, {params});
 }

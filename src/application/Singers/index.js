@@ -28,7 +28,7 @@ const letterList = [...new Array(26)]
 
 const Singers = (props) => {
 
-  const { singerList } = props;
+  const { singerList, isLoading } = props;
   const { fetchSingerList } = props;
 
   const [cat, setCat] = useState(null);
@@ -36,18 +36,39 @@ const Singers = (props) => {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetchSingerList({offset, isHot: true});
+    if (cat || initial) {
+      fetchSingerList({cat, initial, offset})
+    } else {
+      fetchSingerList({ offset, isHot: true});
+    }
   }, [offset])
 
   useEffect(() => {
     fetchSingerList({cat, initial, offset})
   }, [cat, initial])
 
+  const setSearchValue = (type, key) => {
+    if (isLoading) return;
+    if (type === 'cat') {
+      if (key === cat) {
+        setCat(null);
+      } else {
+        setCat(key);
+      }
+    } else if (type === 'initial') {
+      if (key === initial) {
+        setInitial(null);
+      } else {
+        setInitial(key);
+      }
+    }
+  }
+
   return (
     <div>
       <HorizenWrapper>
-        <Horizen title={'分类(默认热门)：'} labelList={classificationList} currKey={cat} onClick={setCat} />
-        <Horizen title={'首字母：'} labelList={letterList} currKey={initial} onClick={setInitial} />
+        <Horizen title={'分类(默认热门):'} labelList={classificationList} currKey={cat} onClick={key => setSearchValue('cat', key)} />
+        <Horizen title={'首字母:'} labelList={letterList} currKey={initial} onClick={key => setSearchValue('initial', key)} />
       </HorizenWrapper>
       <SingerListWrapper>
         <Scroll>
@@ -62,6 +83,7 @@ const Singers = (props) => {
 
 const mapStateToProps = state => ({
   singerList: state.getIn(['singers', 'singerList']).toJS(),
+  isLoading: state.getIn(['singers', 'isLoading']),
 })
 
 const mapDispatchToProps = dispatch => ({

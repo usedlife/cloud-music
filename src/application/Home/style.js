@@ -27,7 +27,6 @@ export const Tab = styled.div`
     span{
       color: #e4e4e4;
       font-size: 14px;
-      padding-bottom: 2px;
     }
   }
   .selected span{

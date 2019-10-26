@@ -15,7 +15,7 @@ function RecommendList(props) {
               <div className='img_wrapper'>
                 <div className="decorate"></div>
                 <span className="count">{getCount(item.playCount)}</span>
-                <img src={item.picUrl} />
+                <img src={item.picUrl + '?param=300x300'} />
               </div>
               <div className="desc">{item.name}</div>
             </ListItem>

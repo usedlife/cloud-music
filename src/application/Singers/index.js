@@ -6,6 +6,7 @@ import Horizen from '../../baseUI/Horizen';
 import Scroll from '../../components/Scroll';
 import SingerList from '../../baseUI/SingerList';
 import { HorizenWrapper, SingerListWrapper } from './style';
+import Loading from '../../components/Loading';
 
 const classificationList = [
   {key: 1000, title: '华语'},
@@ -66,6 +67,7 @@ const Singers = (props) => {
 
   return (
     <div>
+      {isLoading ? <Loading /> : null}
       <HorizenWrapper>
         <Horizen title={'分类(默认热门):'} labelList={classificationList} currKey={cat} onClick={key => setSearchValue('cat', key)} />
         <Horizen title={'首字母:'} labelList={letterList} currKey={initial} onClick={key => setSearchValue('initial', key)} />

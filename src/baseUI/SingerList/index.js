@@ -8,7 +8,7 @@ const SingerList = ({list = [], onClick}) => {
       {list.map(item => {
         return (
           <Item key={item.id} onClick={() => {onClick(item)}}>
-            <img src={item.picUrl}/>
+            <img src={item.picUrl + '?param=300x300'}/>
             <span className='name'>{item.name}</span>
           </Item>
         )

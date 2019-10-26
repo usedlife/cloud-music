@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const RecommendWrapper = styled.div`
   position: fixed;
-  top: 80px;
+  top: 90px;
   bottom: 0px;
   width: 100%;
   h2{

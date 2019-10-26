@@ -26,7 +26,8 @@ const letterList = [...new Array(26)]
 const SearchHeader = () => {
   return (
     <HorizenWrapper>
-      <Horizen title={'分类(默认热门)'} labelList={classificationList}/>
+      <Horizen title={'分类(默认热门)：'} labelList={classificationList}/>
+      <Horizen title={'首字母：'} labelList={letterList}/>
     </HorizenWrapper>
   )
 }

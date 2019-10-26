@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HorizenWrapper = styled.div`
   box-sizing: border-box;
   position: fixed;
-  top: 85px;
+  top: 95px;
   width: 100%;
   display: flex;
   flex-direction: column;

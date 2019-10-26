@@ -8,10 +8,11 @@ export const Top = styled.div`
   align-items: center;
   background-color: ${style["theme-color"]};
   color: #f1f1f1;
-  padding: 0 5px;
+  padding: 5px 5px;
   >span{
     line-height: 40px;
   }
+  font-size: 18px;
 `
 
 export const Tab = styled.div`
@@ -26,12 +27,12 @@ export const Tab = styled.div`
     span{
       color: #e4e4e4;
       font-size: 14px;
-      padding: 2px 0;
+      padding-bottom: 2px;
     }
   }
   .selected span{
-    font-weight: 600;
-    border-bottom: 1px solid #fff;
+    font-weight: 700;
+    border-bottom: 2px solid #fff;
     color: #f1f1f1;
   }
 `

@@ -2,10 +2,10 @@ import React from 'react';
 
 import { List, Item } from './style';
 
-const SingerList = ({list = [], onClick}) => {
+const SingerList = ({list, onClick}) => {
   return (
     <List>
-      {list.map(item => {
+      {list.toJS().map(item => {
         return (
           <Item key={item.id} onClick={() => {onClick(item)}}>
             <img src={item.picUrl + '?param=300x300'}/>

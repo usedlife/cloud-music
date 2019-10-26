@@ -10,9 +10,12 @@ export const getRecommendListRequest = () => {
   return request.get('/personalized');
 }
 
+// 条件搜索歌手
+export const getSingerListRequest = (params) => {
+  return request.get('/artist/list', {params});
+}
+
 // 热门歌手
-export const getSingerListRequest = (data) => {
-  const { isHot, ...params } = data;
-  const url = isHot ? '/top/artists' : '/artist/list';
-  return request.get(url, {params});
+export const getHotSingerListRequest = (params) => {
+  return request.get('/top/artists', {params});
 }

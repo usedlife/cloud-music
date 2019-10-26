@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useState } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from './store/actionCreators';
@@ -7,75 +7,47 @@ import Scroll from '../../components/Scroll';
 import SingerList from '../../baseUI/SingerList';
 import { HorizenWrapper, SingerListWrapper } from './style';
 import Loading from '../../components/Loading';
-
-const classificationList = [
-  {key: 1000, title: '华语'},
-  {key: 2000, title: '欧美'},
-  {key: 3000, title: '日本'},
-  {key: 4000, title: '韩国'},
-  {key: 5000, title: '其他'},
-].map(item => ['男', '女', '组合']
-    .map(label => ({
-      key: ++item.key,
-      title: item.title + label + (item.title === '其他' && item.key !== 5003 ? '歌手' : ''),
-    }))
-).flat();
-
-const letterList = [...new Array(26)]
-  .map((_, index) => ({
-    key: String.fromCharCode(97+index),
-    title: String.fromCharCode(65+index),
-  }))
+import { categoryTypes, alphaTypes } from '../../api/helper';
 
 const Singers = (props) => {
 
-  const { singerList, isLoading } = props;
-  const { fetchSingerList } = props;
-
-  const [cat, setCat] = useState(null);
-  const [initial, setInitial] = useState(null);
-  const [offset, setOffset] = useState(0);
+  const { singerList, isLoading, cat, initial, pullUpLoading, pullDownLoading } = props;
+  const { fetchHotSingerList, fetchSingerList, fetchMoreSingerList, fetchMoreHotSingerList } = props;
 
   useEffect(() => {
+    fetchHotSingerList();
+  }, [])
+
+  const handlePullUp = () => {
+    // 如果有搜索条件，获取fetchMoreSingerList
     if (cat || initial) {
-      fetchSingerList({cat, initial, offset})
+      fetchMoreSingerList()
     } else {
-      fetchSingerList({ offset, isHot: true});
+      fetchMoreHotSingerList()
     }
-  }, [offset])
+  }
 
-  useEffect(() => {
-    if (cat || initial) {
-      fetchSingerList({cat, initial, offset})
-    }
-  }, [cat, initial])
+  const handleCatChange = (cat) => {
+    fetchSingerList({cat})
+  }
 
-  const setSearchValue = (type, key) => {
-    if (isLoading) return;
-    if (type === 'cat') {
-      if (key === cat) {
-        setCat(null);
-      } else {
-        setCat(key);
-      }
-    } else if (type === 'initial') {
-      if (key === initial) {
-        setInitial(null);
-      } else {
-        setInitial(key);
-      }
-    }
+  const handleInitialChange = (initial) => {
+    fetchSingerList({initial})
   }
 
   return (
     <div>
       {isLoading ? <Loading /> : null}
       <HorizenWrapper>
-        <Horizen title={'分类(默认热门):'} labelList={classificationList} currKey={cat} onClick={key => setSearchValue('cat', key)} />
-        <Horizen title={'首字母:'} labelList={letterList} currKey={initial} onClick={key => setSearchValue('initial', key)} />
+        <Horizen title={'分类(默认热门):'} labelList={categoryTypes} currKey={cat} onClick={handleCatChange} />
+        <Horizen title={'首字母:'} labelList={alphaTypes} currKey={initial} onClick={handleInitialChange} />
       </HorizenWrapper>
       <SingerListWrapper>
-        <Scroll>
+        <Scroll
+          pullUpLoading={pullUpLoading}
+          pullDownLoading={pullDownLoading}
+          pullUp={ handlePullUp }
+        >
           <div>
             <SingerList list={singerList} onClick={()=>{}}></SingerList>
           </div>
@@ -86,13 +58,33 @@ const Singers = (props) => {
 }
 
 const mapStateToProps = state => ({
-  singerList: state.getIn(['singers', 'singerList']).toJS(),
+  singerList: state.getIn(['singers', 'singerList']),
   isLoading: state.getIn(['singers', 'isLoading']),
+  pullUpLoading: state.getIn(['singers', 'pullUpLoading']),
+  pullDownLoading: state.getIn(['singers', 'pullDownLoading']),
+  initial: state.getIn(['singers', 'initial']),
+  cat: state.getIn(['singers', 'cat']),
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchSingerList(data) {
-    dispatch(actionCreators.fetchSingerList(data));
+  fetchHotSingerList() {
+    dispatch(actionCreators.changeLoading(true));
+    dispatch(actionCreators.fetchHotSingerList());
+  },
+  fetchSingerList({cat, initial}) {
+    dispatch(actionCreators.changeLoading(true));
+    dispatch(actionCreators.changeOffset(0));
+    if (cat) dispatch(actionCreators.changeCat(cat));
+    if (initial) dispatch(actionCreators.changeInitial(initial));
+    dispatch(actionCreators.fetchSingerList());
+  },
+  fetchMoreHotSingerList() {
+    dispatch(actionCreators.changePullUpLoading(true));
+    dispatch(actionCreators.fetchMoreHotSingerList());
+  },
+  fetchMoreSingerList() {
+    dispatch(actionCreators.changePullUpLoading(true));
+    dispatch(actionCreators.fetchMoreSingerList());
   }
 })
 

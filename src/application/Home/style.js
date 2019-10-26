@@ -25,7 +25,7 @@ export const Tab = styled.div`
     text-align: center;
     span{
       color: #e4e4e4;
-      font-size: 12px;
+      font-size: 14px;
       padding: 2px 0;
     }
   }

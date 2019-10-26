@@ -1,7 +1,17 @@
 import React from 'react';
 
-export default () => {
+import { SingersWrapper } from './style';
+import SearchHeader from './component/SearchHeader';
+import SingersList from './component/SingersList';
+
+const Singers = () => {
   return (
-    'Singers'
+    <SingersWrapper>
+      <SearchHeader />
+      {/* <SingersList /> */}
+    </SingersWrapper>
   )
 }
+
+
+export default React.memo(Singers);

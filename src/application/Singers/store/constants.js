@@ -1,0 +1,1 @@
+export const CHANGE_SINGERLIST = 'singers/CHANGE_SINGERLIST';

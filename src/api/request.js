@@ -9,3 +9,8 @@ export const getBannerRequest = () => {
 export const getRecommendListRequest = () => {
   return request.get('/personalized');
 }
+
+// 热门歌手
+export const getSingerListRequest = (data) => {
+  return request.get('/top/artists',{params: data});
+}

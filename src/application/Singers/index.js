@@ -45,7 +45,9 @@ const Singers = (props) => {
   }, [offset])
 
   useEffect(() => {
-    fetchSingerList({cat, initial, offset})
+    if (cat || initial) {
+      fetchSingerList({cat, initial, offset})
+    }
   }, [cat, initial])
 
   const setSearchValue = (type, key) => {

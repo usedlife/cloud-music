@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { SingersWrapper } from './style';
 import SearchHeader from './component/SearchHeader';
-import SingersList from './component/SingersList';
+import SingerList from './component/SingerList';
 
 const Singers = () => {
   return (
-    <SingersWrapper>
+    <div>
       <SearchHeader />
-      {/* <SingersList /> */}
-    </SingersWrapper>
+      <SingerList />
+    </div>
   )
 }
 

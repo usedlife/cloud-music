@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Slider from '../../components/Slider';
-import SongSheetList from '../../components/SongSheetList';
+import SongSheetList from '../../baseUI/SongSheetList';
 import { RecommendWrapper } from './style';
 import Scroll from '../../components/Scroll';
 import * as actionTypes from './store/actionCreators';

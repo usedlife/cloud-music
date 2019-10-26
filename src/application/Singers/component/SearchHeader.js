@@ -1,7 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import Horizen from '../../../baseUI/Horizen';
-import { HorizenWrapper } from './style';
 
 const classificationList = [
   {key: 1000, title: '华语'},
@@ -13,7 +13,7 @@ const classificationList = [
   return ['男', '女', '组合']
     .map(label => ({
       key: ++item.key,
-      title: item.title + label + (item.title == '其他' && item.key != 5003 ? '歌手' : ''),
+      title: item.title + label + (item.title === '其他' && item.key !== 5003 ? '歌手' : ''),
     }))
 }).flat();
 
@@ -31,5 +31,16 @@ const SearchHeader = () => {
     </HorizenWrapper>
   )
 }
+
+const HorizenWrapper = styled.div`
+  box-sizing: border-box;
+  position: fixed;
+  top: 95px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  overflow: hidden;
+`
 
 export default React.memo(SearchHeader);

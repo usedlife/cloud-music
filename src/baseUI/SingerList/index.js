@@ -5,7 +5,7 @@ import { List, Item } from './style';
 const SingerList = ({list, onClick}) => {
   return (
     <List>
-      {list.toJS().map(item => {
+      {list.toJS().map((item, index) => {
         return (
           <Item key={item.id} onClick={() => {onClick(item)}}>
             <img src={item.picUrl + '?param=300x300'}/>

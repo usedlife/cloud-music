@@ -6,10 +6,11 @@ import SongSheetList from '../../baseUI/SongSheetList';
 import { RecommendWrapper } from './style';
 import Scroll from '../../components/Scroll';
 import * as actionTypes from './store/actionCreators';
+import Loading from '../../components/Loading';
 
 const Recommend = (props) => {
 
-  const { bannerList, recommendList } = props;
+  const { bannerList, recommendList, isLoading } = props;
 
   const { fetchBannerList, fetchRecommendList } = props;
 
@@ -17,6 +18,8 @@ const Recommend = (props) => {
     fetchBannerList();
     fetchRecommendList();
   }, [])
+
+  if (isLoading) return <Loading />
 
   return (
     <RecommendWrapper>
@@ -32,8 +35,9 @@ const Recommend = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  bannerList: state.getIn(['recommend', 'bannerList']).toJS(),
-  recommendList: state.getIn(['recommend', 'recommendList']).toJS(),
+  bannerList: state.getIn(['recommend', 'bannerList']),
+  recommendList: state.getIn(['recommend', 'recommendList']),
+  isLoading: state.getIn(['recommend', 'isLoading']),
 })
 
 const mapDispatchToProps = (dispatch) => ({

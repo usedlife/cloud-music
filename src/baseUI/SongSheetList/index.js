@@ -9,7 +9,7 @@ function RecommendList(props) {
   return (
     <ListWrapper>
       <List>
-        {list.map((item, index) => {
+        {list.toJS().map((item, index) => {
           return (
             <ListItem key={index}>
               <div className='img_wrapper'>

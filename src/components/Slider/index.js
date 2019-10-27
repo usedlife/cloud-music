@@ -25,7 +25,7 @@ const Slider = (props) => {
       <div className='before'></div>
       <div className="swiper-container">
         <div className="swiper-wrapper">
-          {bannerList.map((item, index) => {
+          {bannerList.toJS().map((item, index) => {
             return (
               <div className="swiper-slide" key={index}>
                 <div className="swiper-nav">

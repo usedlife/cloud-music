@@ -31,7 +31,7 @@ export const changeInitial = (data) => ({
   data,
 })
 
-export const fetchSingerList = () => (dispatch, getState) => {
+export const fetchSingerList = (isRefresh) => (dispatch, getState) => {
   const state = getState();
   const offset = state.getIn(['singers', 'offset']);
   const cat = state.getIn(['singers', 'cat']);
@@ -39,7 +39,8 @@ export const fetchSingerList = () => (dispatch, getState) => {
   getSingerListRequest({offset, cat, initial}).then(res => {
     dispatch(changeSingerList(res.artists));
     dispatch(changeOffset(res.artists.length));
-    dispatch(changeLoading(false))
+    if (isRefresh) dispatch(changePullDownLoading(false))
+    else dispatch(changeLoading(false))
   }).catch(() => {
     console.error('热门歌手获取错误');
   })
@@ -61,12 +62,13 @@ export const fetchMoreSingerList = () => (dispatch, getState) => {
   })
 }
 
-export const fetchHotSingerList = () => (dispatch, getState) => {
+export const fetchHotSingerList = (isRefresh) => (dispatch, getState) => {
   const offset = getState().getIn(['singers', 'offset']);
   getHotSingerListRequest({offset}).then(res => {
     dispatch(changeSingerList(res.artists));
     dispatch(changeOffset(res.artists.length));
-    dispatch(changeLoading(false));
+    if (isRefresh) dispatch(changePullDownLoading(false))
+    else dispatch(changeLoading(false))
   }).catch(() => {
     console.error('热门歌手获取错误');
   })

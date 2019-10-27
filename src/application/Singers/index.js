@@ -12,7 +12,7 @@ import { categoryTypes, alphaTypes } from '../../api/helper';
 const Singers = (props) => {
 
   const { singerList, isLoading, cat, initial, pullUpLoading, pullDownLoading } = props;
-  const { fetchHotSingerList, fetchSingerList, fetchMoreSingerList, fetchMoreHotSingerList } = props;
+  const { fetchHotSingerList, fetchSingerList, fetchMoreSingerList, fetchMoreHotSingerList, refreshSingerList, refreshHotSingerList } = props;
 
   const scrollRef = useRef();
 
@@ -29,6 +29,14 @@ const Singers = (props) => {
       fetchMoreSingerList()
     } else {
       fetchMoreHotSingerList()
+    }
+  }
+
+  const handlePullDown = () => {
+    if (cat || initial) {
+      refreshSingerList();
+    } else {
+      refreshHotSingerList();
     }
   }
 
@@ -56,13 +64,14 @@ const Singers = (props) => {
           pullUpLoading={pullUpLoading}
           pullDownLoading={pullDownLoading}
           pullUp={ handlePullUp }
+          pullDown={handlePullDown}
         >
           <div>
             <SingerList list={singerList} onClick={()=>{}}></SingerList>
           </div>
         </Scroll>
       </SingerListWrapper>
-      {isLoading ? <Loading /> : null}
+      {getIsLoading() ? <Loading /> : null}
     </div>
   )
 }
@@ -95,6 +104,16 @@ const mapDispatchToProps = dispatch => ({
   fetchMoreSingerList() {
     dispatch(actionCreators.changePullUpLoading(true));
     dispatch(actionCreators.fetchMoreSingerList());
+  },
+  refreshSingerList() {
+    dispatch(actionCreators.changePullDownLoading(true));
+    dispatch(actionCreators.changeOffset(0));
+    dispatch(actionCreators.fetchSingerList('isRefresh'));
+  },
+  refreshHotSingerList() {
+    dispatch(actionCreators.changePullDownLoading(true));
+    dispatch(actionCreators.changeOffset(0));
+    dispatch(actionCreators.fetchHotSingerList('isRefresh'));
   }
 })
 

@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from './store/actionCreators';
@@ -14,6 +14,8 @@ const Singers = (props) => {
   const { singerList, isLoading, cat, initial, pullUpLoading, pullDownLoading } = props;
   const { fetchHotSingerList, fetchSingerList, fetchMoreSingerList, fetchMoreHotSingerList } = props;
 
+  const scrollRef = useRef();
+
   useEffect(() => {
     fetchHotSingerList();
   }, [])
@@ -28,11 +30,13 @@ const Singers = (props) => {
   }
 
   const handleCatChange = (cat) => {
-    fetchSingerList({cat})
+    fetchSingerList({cat});
+    scrollRef.current.refresh();
   }
 
   const handleInitialChange = (initial) => {
-    fetchSingerList({initial})
+    fetchSingerList({initial});
+    scrollRef.current.refresh();
   }
 
   return (
@@ -44,6 +48,7 @@ const Singers = (props) => {
       </HorizenWrapper>
       <SingerListWrapper>
         <Scroll
+          ref={scrollRef}
           pullUpLoading={pullUpLoading}
           pullDownLoading={pullDownLoading}
           pullUp={ handlePullUp }

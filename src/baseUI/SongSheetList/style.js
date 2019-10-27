@@ -16,7 +16,10 @@ export const ListItem = styled.div`
   padding: 2px;
   .img_wrapper{
     position: relative;
+    padding-bottom: 100%;
+    height: 0px;
     img{
+      position: absolute;
       width: 100%;
       height: 100%;
       border-radius: 2px;

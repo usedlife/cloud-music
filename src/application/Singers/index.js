@@ -1,5 +1,6 @@
 import React, { useEffect, memo, useRef } from 'react';
 import { connect } from 'react-redux';
+import { forceCheck } from 'react-lazyload';
 
 import * as actionCreators from './store/actionCreators';
 import Horizen from '../../baseUI/Horizen';
@@ -65,6 +66,7 @@ const Singers = (props) => {
           pullDownLoading={pullDownLoading}
           pullUp={ handlePullUp }
           pullDown={handlePullDown}
+          onScroll={forceCheck}
         >
           <div>
             <SingerList list={singerList} onClick={()=>{}}></SingerList>

@@ -10,7 +10,7 @@ const Slider = (props) => {
   const [slider, setSlider] = useState(null);
 
   useEffect(() => {
-    if (!slider && bannerList.length) {
+    if (!slider && bannerList.size) {
       setSlider(new Swiper('.swiper-container', {
         loop: true,
         autoplay: true,
@@ -18,7 +18,7 @@ const Slider = (props) => {
         pagination: {el:'.swiper-pagination'},
       }))
     }
-  }, [bannerList.length])
+  }, [bannerList.size])
 
   return (
     <SliderContainer>

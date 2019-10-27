@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { forceCheck } from 'react-lazyload';
 
 import Slider from '../../components/Slider';
 import SongSheetList from '../../baseUI/SongSheetList';
@@ -27,7 +28,7 @@ const Recommend = (props) => {
 
   return (
     <RecommendWrapper>
-      <Scroll>
+      <Scroll onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerList} />
           <h2>推荐歌单</h2>

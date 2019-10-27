@@ -16,12 +16,16 @@ export const Item = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  >img{
+  .imgWrapper{
     height: 50px;
     width: 50px;
-    border-radius: 5px;
+    >img{
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
   }
-  >.name{
+  .name{
     font-size: 14px;
     font-weight: 400;
     margin-left: 16px;

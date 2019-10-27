@@ -15,8 +15,12 @@ const Recommend = (props) => {
   const { fetchBannerList, fetchRecommendList } = props;
 
   useEffect(() => {
-    fetchBannerList();
-    fetchRecommendList();
+    if (!bannerList.size) {
+      fetchBannerList();
+    }
+    if (!recommendList.size) {
+      fetchRecommendList();
+    }
   }, [])
 
   if (isLoading) return <Loading />

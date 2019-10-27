@@ -17,17 +17,22 @@ const Singers = (props) => {
   const scrollRef = useRef();
 
   useEffect(() => {
-    fetchHotSingerList();
+    if (!singerList.size) {
+      fetchHotSingerList();
+    }
   }, [])
 
   const handlePullUp = () => {
     // 如果有搜索条件，获取fetchMoreSingerList
+    if (getIsLoading()) return;
     if (cat || initial) {
       fetchMoreSingerList()
     } else {
       fetchMoreHotSingerList()
     }
   }
+
+  const getIsLoading = () => isLoading || pullUpLoading || pullDownLoading;
 
   const handleCatChange = (cat) => {
     fetchSingerList({cat});
@@ -41,7 +46,6 @@ const Singers = (props) => {
 
   return (
     <div>
-      {isLoading ? <Loading /> : null}
       <HorizenWrapper>
         <Horizen title={'分类(默认热门):'} labelList={categoryTypes} currKey={cat} onClick={handleCatChange} />
         <Horizen title={'首字母:'} labelList={alphaTypes} currKey={initial} onClick={handleInitialChange} />
@@ -58,6 +62,7 @@ const Singers = (props) => {
           </div>
         </Scroll>
       </SingerListWrapper>
+      {isLoading ? <Loading /> : null}
     </div>
   )
 }

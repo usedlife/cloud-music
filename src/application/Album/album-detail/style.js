@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../api/helper';
-import styles from '../../../assets/global-style';
 
 export const TopDesc = styled.div`
   height: 275px;
@@ -11,6 +9,7 @@ export const TopDesc = styled.div`
   justify-content: center;
   color: #f1f1f1;
   padding: 0 30px 10px;
+  overflow: hidden;
   .background{
     position: absolute;
     top: 0; bottom: 0;
@@ -71,7 +70,8 @@ export const Menu = styled.ul`
   align-items: center;
   width: 100%;
   justify-content: space-around;
-  margin-top: -50px;
+  margin-top: -80px;
+  height: 80px;
   li{
     font-size: 14px;
     color: #f1f1f1;

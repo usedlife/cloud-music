@@ -1,27 +1,26 @@
 import React, { memo } from 'react';
 
 import { TopDesc, Menu } from './style';
-import SongList from '../../../baseUI/SongList'
+import SongsList from '../../../baseUI/SongList'
 
 const AlbumDetail = (props) => {
   const { currentAlbum } = props;
-  const currentAlbumJS = currentAlbum.toJS();
   return (
     <div>
-      <TopDesc imgUrl={currentAlbumJS.coverImgUrl}>
+      <TopDesc imgUrl={currentAlbum.coverImgUrl}>
         <div className="background">
           <div className="filter"></div>
         </div>
         <div className="img_wrapper">
           <div className="decorate"></div>
-          <img src={currentAlbumJS.coverImgUrl}></img>
+          <img src={currentAlbum.coverImgUrl}></img>
           <div className="play_count">
-            <span className="count">{Math.floor(currentAlbumJS.subscribedCount/1000)/10}万</span>
+            <span className="count">{Math.floor(currentAlbum.subscribedCount/1000)/10}万</span>
           </div>
         </div>
         <div className="desc_wrapper">
-          <span className="desc_name">{currentAlbumJS.name}</span>
-          <span className="author">{currentAlbumJS.creator.nickname}</span>
+          <span className="desc_name">{currentAlbum.name}</span>
+          <span className="author">{currentAlbum.creator.nickname}</span>
         </div>
       </TopDesc>
       <Menu>
@@ -30,7 +29,7 @@ const AlbumDetail = (props) => {
         <li><i>⭐️</i>收藏</li>
         <li><i>⇣</i>更多</li>
       </Menu>
-      <SongList list={currentAlbumJS.tracks} />
+      <SongsList songs={currentAlbum.tracks} />
     </div>
   )
 }

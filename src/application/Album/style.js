@@ -35,5 +35,9 @@ export const Header = styled.div`
   color: #f1f1f1;
   padding: 0 6px;
   height: ${HEADER_HEIGHT}px;
-  background-color: ${styles["theme-color"]};
+  // background-color: ${styles["theme-color"]};
+  >span{
+    font-weight: 600;
+    padding: 0 8px 0 3px;
+  }
 `

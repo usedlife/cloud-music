@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { forceCheck } from 'react-lazyload';
+import { renderRoutes } from 'react-router-config';
 
 import Slider from '../../components/Slider';
 import SongSheetList from '../../baseUI/SongSheetList';
@@ -24,6 +25,10 @@ const Recommend = (props) => {
     }
   }, [])
 
+  const handleSongSheetClick = (item) => {
+    props.history.push(`/recommend/${item.id}`);
+  }
+
   if (isLoading) return <Loading />
 
   return (
@@ -32,9 +37,10 @@ const Recommend = (props) => {
         <div>
           <Slider bannerList={bannerList} />
           <h2>推荐歌单</h2>
-          <SongSheetList list={recommendList}/>
+          <SongSheetList list={recommendList} onClick={handleSongSheetClick}/>
         </div>
       </Scroll>
+      {renderRoutes(props.route.routes)}
     </RecommendWrapper>
   )
 }

@@ -8,14 +8,14 @@ import musicImg from '../../assets/music.png'
 
 function RecommendList(props) {
 
-  const { list } = props;
+  const { list, onClick } = props;
 
   return (
     <ListWrapper>
       <List>
         {list.toJS().map((item, index) => {
           return (
-            <ListItem key={index}>
+            <ListItem key={index} onClick={() => onClick(item)}>
               <div className='img_wrapper'>
                 <LazyLoad placeholder={<img src={musicImg} width="100%" height="100%" />}>
                   <img src={item.picUrl + '?param=300x300'} />

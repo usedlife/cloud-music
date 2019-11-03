@@ -1,17 +1,27 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
 import { AlbumWrapper } from './style';
+import Scroll from '../../components/Scroll';
+import AlbumDetail from './album-detail';
+import { fetchCurrentAlbum, changeIsLoading } from './store/actionCreator';
 
 const Album = (props) => {
   
   const { match: {params: {id}}, history } = props;
+  const { fetchCurrentAlbum } = props;
+  const { currentAlbum, isLoading, isPullDownLoading } = props;
 
   const [isIn, setIsIn] = useState(true);
 
   const handleBack = () => {
     setIsIn(false);
   }
+
+  useEffect(() => {
+    fetchCurrentAlbum(id);
+  }, [])
 
   return (
     <CSSTransition
@@ -22,10 +32,25 @@ const Album = (props) => {
       onExited={history.goBack}
     >
       <AlbumWrapper>
-        <div onClick={handleBack}>{id}</div>
+        <Scroll>
+          <AlbumDetail currentAlbum={currentAlbum}/>
+        </Scroll>
       </AlbumWrapper>
     </CSSTransition>
   )
 }
 
-export default memo(Album);
+const mapStateToProps = (state) => ({
+  currentAlbum: state.getIn(['album', 'currentAlbum']),
+  isLoading: state.getIn(['album', 'isLoading']),
+  isPullDownLoading: state.getIn(['album', 'isPullDownLoading']),
+})
+
+const mapDisPatchToProps = dispatch => ({
+  fetchCurrentAlbum(id) {
+    dispatch(changeIsLoading(true));
+    dispatch(fetchCurrentAlbum(id));
+  }
+})
+
+export default connect(mapStateToProps, mapDisPatchToProps)(memo(Album));

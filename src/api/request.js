@@ -19,3 +19,8 @@ export const getSingerListRequest = (params) => {
 export const getHotSingerListRequest = (params) => {
   return request.get('/top/artists', {params});
 }
+
+// 歌单详情
+export const getAlbumDetail = (params) => {
+  return request.get('playlist/detail', {params});
+}

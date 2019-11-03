@@ -16,3 +16,5 @@ export const alphaTypes = [...new Array(26)]
     key: String.fromCharCode(97+index),
     title: String.fromCharCode(65+index),
   }))
+
+export const HEADER_HEIGHT = 40;

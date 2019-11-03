@@ -2,16 +2,18 @@ import React, { memo, useState, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 
-import { AlbumWrapper } from './style';
+import { AlbumWrapper, Header } from './style';
 import Scroll from '../../components/Scroll';
 import AlbumDetail from './album-detail';
 import { fetchCurrentAlbum, changeIsLoading } from './store/actionCreator';
+import { isEmptyObject } from '../../api/utils';
 
 const Album = (props) => {
   
   const { match: {params: {id}}, history } = props;
   const { fetchCurrentAlbum } = props;
   const { currentAlbum, isLoading, isPullDownLoading } = props;
+  const currentAlbumJS = currentAlbum.toJS();
 
   const [isIn, setIsIn] = useState(true);
 
@@ -32,9 +34,14 @@ const Album = (props) => {
       onExited={history.goBack}
     >
       <AlbumWrapper>
-        <Scroll>
-          <AlbumDetail currentAlbum={currentAlbum}/>
-        </Scroll>
+        <Header>
+          <span onClick={handleBack}> &lt; 歌单</span>
+        </Header>
+        { !isEmptyObject(currentAlbumJS) ? (
+          <Scroll>
+            <AlbumDetail currentAlbum={currentAlbum}/>
+          </Scroll>
+        ) : null}
       </AlbumWrapper>
     </CSSTransition>
   )

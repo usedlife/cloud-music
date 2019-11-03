@@ -8,3 +8,5 @@ export function getCount(count) {
     return Math.floor(count / 10000000)/ 10 + "亿";
   }
 }
+
+export const isEmptyObject = obj => !obj || Object.keys(obj).length === 0;
